@@ -11,6 +11,7 @@ https://www.youtube.com/watch?v=3ugQRXRToFA
 
 C:\react\React-Testing-Library-Net-Ninja> npm install
 C:\react\React-Testing-Library-Net-Ninja\src\components\Header\__test__\Header.test.js
+C:\react\React-Testing-Library-Net-Ninja\src\components\TodoFooter\__test__\TodoFooter.test.js
 
 ################################################################################################
 
@@ -34,6 +35,10 @@ getByTestId		(least preferable)
 
 ====================================================================
 
+--------------------
+-- Get elements: ---
+--------------------
+
   render(<Header title='My Header'/>);
   const headingElement = screen.getByText(/my header/i); // it's regex so can be small letters
   expect(headingElement).toBeInTheDocument();
@@ -53,6 +58,26 @@ getByTestId		(least preferable)
 
   const headingElement = screen.getByTitle('Header');
   const headingElement = screen.getByTestId('header-1');
+
+
+--------------------
+-- Assertions    ---
+--------------------
+  You can just do the expect(xxx). and then the intellij will promp you all the choices of options
+
+  expect(headingElement).toBeInTheDocument();
+  expect(headingElement).not.toBeInTheDocument();
+  expect(paragraphElement).toBeTruthy();
+
+  <p style={{opacity: 0}}>{numberOfIncompleteTasks} {numberOfIncompleteTasks === 1 ? "task" : "tasks"} left</p>
+  expect(paragraphElement).not.toBeVisible();		<< so even if the element is in the document, but if the styling is set to
+
+  expect(paragraphElement).toContainHTML('p');
+  expect(paragraphElement).toContainHTML('h3');
+  expect(paragraphElement).toHaveTextContent('1 task left');		<< Text content
+  expect(paragraphElement.textContent).toBe('1 task left');
+  expect(paragraphElement.value).toBe('1 task left');			<< value can only be get from the <input> element
+
 
 ---------------------
 
@@ -84,6 +109,29 @@ findByText need to use async await while getByTest doesn't:
     expect(headingElements.length).toBe(2);
   });
 
+
+------------------------
+
+If your element got <Link> from react-router-dom:
+        <div className="todo-footer">
+            <p>{numberOfIncompleteTasks} {numberOfIncompleteTasks === 1 ? "task" : "tasks"} left</p>
+            <Link to="/followers">Followers</Link>
+        </div>
+
+You will generally get this error: Invariant failed: You should not use <Link> outside a <Router>
+You will need to create a mock wrapper to contain the component for testing:
+
+const MockTodoFooter = ({ numberOfIncompleteTasks }) => (
+    <BrowserRouter>
+      <TodoFooter numberOfIncompleteTasks={numberOfIncompleteTasks} />
+    </BrowserRouter>
+  );
+
+  test('should render the correct amount of incomplete tasks', () => {
+    render(<MockTodoFooter numberOfIncompleteTasks={5} />);
+    const paragraphElement = screen.getByText(/5 tasks left/i); // it's regex so can be small letters
+    expect(paragraphElement).toBeInTheDocument();
+  });
 
 
 
