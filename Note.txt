@@ -6,7 +6,7 @@ https://github.com/Annie-Huang/React-Testing-Library-Net-Ninja
 
 https://testing-library.com/docs/react-testing-library/intro/
 
-https://www.youtube.com/watch?v=PLL5Pvuk-tw
+https://www.youtube.com/watch?v=3ugQRXRToFA
 ################################################################################################
 
 C:\react\React-Testing-Library-Net-Ninja> npm install

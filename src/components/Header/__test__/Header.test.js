@@ -6,6 +6,7 @@ test('should render same text passed into title prop', () => {
   const headingElement = screen.getByText(/my header/i); // it's regex so can be small letters
   expect(headingElement).toBeInTheDocument();
 });
+/*
 
 test('should render same text passed into title prop', () => {
   render(<Header title='My Header' />);
@@ -45,3 +46,4 @@ test('should render same text passed into title prop', () => {
   const headingElements = screen.getAllByRole('heading');
   expect(headingElements.length).toBe(2);
 });
+*/
