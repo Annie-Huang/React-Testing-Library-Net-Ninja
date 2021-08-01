@@ -1,0 +1,35 @@
+React Testing Library Tutorial
+(https://www.youtube.com/playlist?list=PL4cUxeGkcC9gm4_-5UsNmLqMosM-dzuvQ)
+
+https://github.com/harblaith7/React-Testing-Library-Net-Ninja
+https://github.com/Annie-Huang/React-Testing-Library-Net-Ninja
+
+https://testing-library.com/docs/react-testing-library/intro/
+
+https://www.youtube.com/watch?v=PLL5Pvuk-tw
+=============================================================================================
+
+C:\react\React-Testing-Library-Net-Ninja> npm install
+
+
+=============================================================================================
+
+getBy cannot used for async awake.
+findBy can used for async awake.
+queryBy return null (rather than throwing an error). So if you want to test the lack of existence of a element, use queryBy.
+Similar matching fro getAllBy vs findAllBy vs queryAllBy
+
+----- Accessible by everyone -------------
+getByRole		(more preferable, get by heading (h1,h2,h3 etc))
+getByLabelText
+getByPlaceholderText
+getByText
+------ Semantic Queries ---------
+getByAltText
+getByTitle
+------- Test ID ----------
+getByTestId		(least preferable)
+
+
+  const linkElement = screen.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
