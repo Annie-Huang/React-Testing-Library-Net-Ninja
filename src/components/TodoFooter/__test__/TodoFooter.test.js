@@ -19,6 +19,7 @@ test('should render "task" when the number of incomplete tasks is one', () => {
   const paragraphElement = screen.getByText(/1 task left/i); // it's regex so can be small letters
   expect(paragraphElement).toBeInTheDocument();
 });
+/*
 
 test('should render "task" when the number of incomplete tasks is one', () => {
   render(<MockTodoFooter numberOfIncompleteTasks={1} />);
@@ -59,3 +60,4 @@ test('should render "task" when the number of incomplete tasks is one', () => {
   const paragraphElement = screen.getByTestId('para');
   expect(paragraphElement.textContent).toBe('1 task left');
 });
+*/
