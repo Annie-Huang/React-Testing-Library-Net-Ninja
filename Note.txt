@@ -6,12 +6,15 @@ https://github.com/Annie-Huang/React-Testing-Library-Net-Ninja
 
 https://testing-library.com/docs/react-testing-library/intro/
 
-https://www.youtube.com/watch?v=kVzw_f7TfCE
+https://www.youtube.com/watch?v=0Y11K7KSC80
 ################################################################################################
 
 C:\react\React-Testing-Library-Net-Ninja> npm install
+
+3 Test files we created in this tutorial:
 C:\react\React-Testing-Library-Net-Ninja\src\components\Header\__test__\Header.test.js
 C:\react\React-Testing-Library-Net-Ninja\src\components\TodoFooter\__test__\TodoFooter.test.js
+C:\react\React-Testing-Library-Net-Ninja\src\components\AddInput\__test__\AddInput.test.js
 
 ################################################################################################
 
@@ -34,7 +37,6 @@ getByTestId		(least preferable)
 
 
 ====================================================================
-
 --------------------
 -- Get elements: ---
 --------------------
@@ -55,10 +57,12 @@ getByTestId		(least preferable)
   const headingElement = screen.getByRole('heading');				<< Will failed if there are multiple elements.
   const headingElement = screen.getByRole('heading', {name: 'My Header'});	<< name property is the text content:
   const headingElement = screen.getByRole('paragraph');
+  const buttonElement = screen.getByRole('button', { name: /Add/i });
 
   const headingElement = screen.getByTitle('Header');
   const headingElement = screen.getByTestId('header-1');
 
+  const inputElement = screen.getByPlaceholderText(/Add a new task here.../i);
 
 --------------------
 -- Assertions    ---
@@ -78,6 +82,49 @@ getByTestId		(least preferable)
   expect(paragraphElement.textContent).toBe('1 task left');
   expect(paragraphElement.value).toBe('1 task left');			<< value can only be get from the <input> element
 
+
+--------------------
+-- fire event    ---
+--------------------
+You can fire the following event, again, just do the fireEvent. and then the intelli will promp you all the choice of options
+  change (change the value of the input) |
+  blur |
+  click |
+  copy |
+  cut |
+  drag |
+  doubleClick |
+  focus |
+  keyUp |
+  mouseOver (is this === hover?) |
+  mouseLeave
+
+
+    const mockedSetTodo = jest.fn();
+    render(<AddInput todos={[]} setTodos={mockedSetTodo} />);
+    const inputElement = screen.getByPlaceholderText(/Add a new task here.../i);
+    const buttonElement = screen.getByRole('button', { name: /Add/i });
+
+    fireEvent.change(inputElement, {			<<< Need to d change event on target.value, which is just like type into input field.
+      target: { value: 'Go Grocery Shopping' },
+    });
+    expect(inputElement.value).toBe('Go Grocery Shopping');
+    fireEvent.click(buttonElement);
+    expect(inputElement.value).toBe('');
+
+
+
+------------------------------------
+-- Other testing library method  ---
+------------------------------------
+  import {render, cleanup, waitForElement} from "@testing-library/react";
+
+    beforeEach(cleanup);
+    await waitForElement(() => [
+        expect(getByText('Hacker News Stories')).toBeTruthy(),
+        expect(getByText('Tarnished: Google Responds')).toBeTruthy(),
+        expect(queryByTestId('story-by').textContent).toEqual('By: Karl Hadwen')
+    ]);
 
 ---------------------
 
