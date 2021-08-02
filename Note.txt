@@ -6,7 +6,7 @@ https://github.com/Annie-Huang/React-Testing-Library-Net-Ninja
 
 https://testing-library.com/docs/react-testing-library/intro/
 
-https://www.youtube.com/watch?v=TBZy-Rc-xX0
+https://www.youtube.com/watch?v=MtiQMhzjQrY
 ################################################################################################
 
 C:\react\React-Testing-Library-Net-Ninja> npm install
@@ -133,6 +133,10 @@ You can fire the following event, again, just do the fireEvent. and then the int
     ]);
 
 
+    const followerDivElement = await screen.findByTestId('follower-item-0');
+    screen.debug();					<<<< This will show you the component that it rendered.
+    expect(followerDivElement).toBeInTheDocument();
+
 -------------------------------------------------------------
 
 --------------------------------------
@@ -176,6 +180,10 @@ findByText need to use async await while getByTest doesn't:
   });
 
 
+---------------------------------------------------------------
+-- setup axios mock so we don't actually call the backend   ---
+---------------------------------------------------------------
+C:\react\React-Testing-Library-Net-Ninja\src\__mocks__\axios.js
 
 
 ---------------------------------------------
@@ -202,6 +210,7 @@ const MockTodoFooter = ({ numberOfIncompleteTasks }) => (
     const paragraphElement = screen.getByText(/5 tasks left/i); // it's regex so can be small letters
     expect(paragraphElement).toBeInTheDocument();
   });
+
 
 
 
