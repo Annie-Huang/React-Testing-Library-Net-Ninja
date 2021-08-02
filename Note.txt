@@ -6,16 +6,17 @@ https://github.com/Annie-Huang/React-Testing-Library-Net-Ninja
 
 https://testing-library.com/docs/react-testing-library/intro/
 
-https://www.youtube.com/watch?v=V2wWLM8VX5k
+https://www.youtube.com/watch?v=TBZy-Rc-xX0
 ################################################################################################
 
 C:\react\React-Testing-Library-Net-Ninja> npm install
 
-4 Test files we created in this tutorial:
+5 Test files we created in this tutorial:
 C:\react\React-Testing-Library-Net-Ninja\src\components\Header\__test__\Header.test.js
 C:\react\React-Testing-Library-Net-Ninja\src\components\TodoFooter\__test__\TodoFooter.test.js
 C:\react\React-Testing-Library-Net-Ninja\src\components\AddInput\__test__\AddInput.test.js
 C:\react\React-Testing-Library-Net-Ninja\src\components\Todo\__test__\Todo.test.js
+C:\react\React-Testing-Library-Net-Ninja\src\components\FollowersList\__test__\FollowersList.test.js
 
 ################################################################################################
 
@@ -62,6 +63,8 @@ getByTestId		(least preferable)
 
   const headingElement = screen.getByTitle('Header');
   const headingElement = screen.getByTestId('header-1');
+  const followerDivElement = await screen.findByTestId('follower-item-0');
+  const followerDivElements = await screen.findAllByTestId(/follower-item/i);
   const divElements = screen.getAllByTestId('task-container');
 
   const inputElement = screen.getByPlaceholderText(/Add a new task here.../i);
@@ -129,7 +132,12 @@ You can fire the following event, again, just do the fireEvent. and then the int
         expect(queryByTestId('story-by').textContent).toEqual('By: Karl Hadwen')
     ]);
 
----------------------
+
+-------------------------------------------------------------
+
+--------------------------------------
+-- async await (getBy vs findBy)   ---
+--------------------------------------
 
 findByText need to use async await while getByTest doesn't:
 
@@ -146,6 +154,14 @@ findByText need to use async await while getByTest doesn't:
     expect(headingElement).toBeInTheDocument();
   });
 
+  describe('FollowersList', () => {
+    it('should render same text passed into title prop', async () => {		<<< Remember to put async here..
+      render(<MockFollowersList />);
+      const followerDivElement = await screen.findByTestId('follower-item-0'); // it's regex so can be small letters
+      expect(followerDivElement).toBeInTheDocument();
+    });
+  });
+
   // QUERY BY
   test('should render same text passed into title prop', () => {
     render(<Header title='My Header' />);
@@ -160,7 +176,11 @@ findByText need to use async await while getByTest doesn't:
   });
 
 
-------------------------
+
+
+---------------------------------------------
+-- When your component got <Link> in it   ---
+---------------------------------------------
 
 If your element got <Link> from react-router-dom:
         <div className="todo-footer">
@@ -182,6 +202,7 @@ const MockTodoFooter = ({ numberOfIncompleteTasks }) => (
     const paragraphElement = screen.getByText(/5 tasks left/i); // it's regex so can be small letters
     expect(paragraphElement).toBeInTheDocument();
   });
+
 
 
 
