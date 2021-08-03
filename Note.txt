@@ -137,6 +137,12 @@ You can fire the following event, again, just do the fireEvent. and then the int
     screen.debug();					<<<< This will show you the component that it rendered.
     expect(followerDivElement).toBeInTheDocument();
 
+
+    beforeEach(() => {...});
+    beforeAll(() => {...});	<< Running once before all tests
+    afterEach(() => {...});
+    afterAll(() => {...});
+
 -------------------------------------------------------------
 
 --------------------------------------
